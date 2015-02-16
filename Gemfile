@@ -9,6 +9,8 @@ gem 'pg'
 # Pagination
 gem 'kaminari'
 
+gem 'pry-rails'
+
 # Bower
 gem "bower-rails"
 
