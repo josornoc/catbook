@@ -15,7 +15,7 @@ class RegistrationController < ApplicationController
     end
   rescue ActiveRecord::RecordNotUnique
     @cat.errors.add(:email, "El email está en la base compadre")
-    render :new
+    render :new     
   end
 
   private

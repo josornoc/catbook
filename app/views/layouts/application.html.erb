@@ -8,11 +8,13 @@
   </head>
   <body>
     <div class="container">
+
       <% flash.map do |key, msg| %>
         <%= content_tag :div, msg, id: key %>
       <% end %>
 
       <%= yield %>
+      
     </div>
   </body>
 </html>

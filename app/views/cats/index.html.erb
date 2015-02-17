@@ -1,5 +1,19 @@
 <h1>Listing cats</h1>
 <%= link_to "create new cat", register_path %>
+<% if @loggedCat %>
+  <h2>You are logged as <%= @loggedCat.name %> the Cat</h2>
+  <%= link_to "Log cat out", logout_path, method: :delete %>
+<% else %>
+<%= render :partial => '/login/login' %>
+<% end %>
+
+<% if flash.any? %>
+  <ul>
+    <% flash.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <% cache("test") do %>
   <% if @cat_of_the_month %>

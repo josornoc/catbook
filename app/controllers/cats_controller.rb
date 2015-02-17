@@ -12,6 +12,11 @@ class CatsController < ApplicationController
     # page scope is provided by kamikari gem
     # https://github.com/amatsuda/kaminari/blob/master/lib/kaminari/models/active_record_model_extension.rb#L13
     @cats = Cat.visible.select(:id, :name, :birthday, :updated_at).order(:id).page(page)
+    if(session[:logged_in_cat])
+      @loggedCat = Cat.where(id:session[:logged_in_cat]).first
+    else
+      @loggedCat = nil
+    end
   end
 
   def show
