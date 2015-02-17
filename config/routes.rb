@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # resources :cats, only: [:index, :show, :edit, :update, :new]
 
   root 'cats#index'
-  resources :cats
-  
+	# root 'registrations#new'
+  get '/register' => 'registration#new'
+  post '/register' => 'registration#create'
+  resources :cats  
 end

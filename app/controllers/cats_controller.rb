@@ -5,7 +5,7 @@ class CatsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   before_action :load_cat_of_the_month, only: :index
-  before_action :load_cat, except: [:index, :new]
+  before_action :load_cat, except: [:index, :new, :create]
 
   def index
     page  = params[:page].to_i || 1
@@ -30,24 +30,7 @@ class CatsController < ApplicationController
     end
   end
 
-  def new
-    @cat = Cat.new
-  end
-
-  def create
-    @cat = Cat.new entry_params
-    if @concert.save
-      redirect_to action: 'index'
-    else
-      #render 'error'
-      raise "Cat couldn't be created..."
-    end
-  end
-
   private
-  def entry_params
-    params.require(:cat).permit(:name, :password, :birthday, :email)
-  end
   def load_cat
     #study difference between find and where.  Find will raise an exception if the active record is not
     #found, where will return an empty array if the item is not found.
