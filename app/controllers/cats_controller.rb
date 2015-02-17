@@ -5,7 +5,7 @@ class CatsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   before_action :load_cat_of_the_month, only: :index
-  before_action :load_cat, except: :index
+  before_action :load_cat, except: [:index, :new]
 
   def index
     page  = params[:page].to_i || 1
@@ -30,8 +30,24 @@ class CatsController < ApplicationController
     end
   end
 
-  private
+  def new
+    @cat = Cat.new
+  end
 
+  def create
+    @cat = Cat.new entry_params
+    if @concert.save
+      redirect_to action: 'index'
+    else
+      #render 'error'
+      raise "Cat couldn't be created..."
+    end
+  end
+
+  private
+  def entry_params
+    params.require(:cat).permit(:name, :password, :birthday, :email)
+  end
   def load_cat
     #study difference between find and where.  Find will raise an exception if the active record is not
     #found, where will return an empty array if the item is not found.
@@ -48,36 +64,15 @@ class CatsController < ApplicationController
   # Do you think this is a good place to put this logic?
   # Where would you move it?
   def load_cat_of_the_month
-
-    last_month_follower_relation = FollowerRelation.where("EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ?", 1.month.ago.month, 1.month.ago.year)
-    # First alternative
-    # Retrieve results from database without order and use ruby function to order hash
-    count_of_followers = last_month_follower_relation.group(:followed_cat_id).count
-    # http://www.rubyinside.com/how-to/ruby-sort-hash
-    cat_of_the_month_data = count_of_followers.sort_by { |k, v| -v }.first
-
-    @cat_of_the_month
-
-    Rails.cache.fetch("test", expires_in: Time.now.end_of_month) do
-      @cat_of_the_month = Cat.find(cat_of_the_month_data.first) if cat_of_the_month_data  
+    @cat_of_the_month = Rails.cache.fetch("test", expires_in: Time.now.end_of_month) do
+      last_month_follower_relation = FollowerRelation.where("EXTRACT(MONTH FROM created_at) = ? AND EXTRACT(YEAR FROM created_at) = ?", 1.month.ago.month, 1.month.ago.year)
+      # First alternative
+      # Retrieve results from database without order and use ruby function to order hash
+      count_of_followers = last_month_follower_relation.group(:followed_cat_id).count
+      # http://www.rubyinside.com/how-to/ruby-sort-hash
+      cat_of_the_month_data = count_of_followers.sort_by { |k, v| -v }.first
+      Cat.find(cat_of_the_month_data.first) if cat_of_the_month_data  
     end
-    
-    # @cat_of_the_month = Cat.find(cat_of_the_month_data.first) if cat_of_the_month_data
-    # last_day_of_the_month = Date.new(Date.today.year, Date.today.month, -1)
-    # days_to_expire = (last_day_of_the_month.day - Date.today.day)+1
-    # cache = ActiveSupport::Cache::MemCacheStore.new
-    # cache.fetch("foo", force: true, raw: true) do
-    #   #:bar
-    #   Cat.find(cat_of_the_month_data.first) if cat_of_the_month_data
-    # end
-
-    #Rails.cache.fetch("/", expires_in: days_to_expire) do
-    #@cat_of_the_month = Cat.find(cat_of_the_month_data.first) if cat_of_the_month_data end
-    #end
-    #cache = ActiveSupport::Cache::MemoryStore.new(expires_in: days_to_expire.days)
-    #@cat_of_the_month = Cat.find(cat_of_the_month_data.first) if cat_of_the_month_data
-
-    
 
     # # Second alternative
     # # Order the results with SQL query an retrieve one result

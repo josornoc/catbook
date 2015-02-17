@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'Faker'
 
 RSpec.describe CatsController, type: :controller do
   describe "GET #index" do
@@ -23,6 +24,9 @@ RSpec.describe CatsController, type: :controller do
     end
 
     it "loads cats with more followers last month into @cat_of_the_month" do
+
+      Rails.cache.delete("test")
+
       cat = create(:cat)
       create(:follower_relation, followed: cat, created_at: 1.month.ago)
       create(:follower_relation, followed: cat, created_at: 1.month.ago)

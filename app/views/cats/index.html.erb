@@ -1,4 +1,5 @@
 <h1>Listing cats</h1>
+<%= link_to "create new cat", new_cat_path() %>
 
 <% cache("test") do %>
   <% if @cat_of_the_month %>

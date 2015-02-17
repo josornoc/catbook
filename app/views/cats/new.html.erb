@@ -1,0 +1,41 @@
+<h1>Create new :: Cat</h1>
+
+<% if @cat.errors.any? %>
+  <ul>
+    <% @cat.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @cat do |c| %>
+  <div class="form-group">
+    <%= c.label :name, "Cat name" %>
+    <%= c.text_field :name, placeholder: "Ej. Marramiau", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= c.label :birthday, "Birthday" %>
+    <%= c.date_field :birthday, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= c.label :email, "Email" %>
+    <%= c.text_field :email, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= c.label :password, "Password" %>
+    <%= c.password_field :password, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= c.label :password_confirmation, "Password Confirmation" %>
+    <%= c.password_field :password_confirmation, class: "form-control" %>
+  </div>
+  <%= c.submit "Create new cat!", class: "btn btn-default" %>
+<% end %>
+
+<% if @cat.errors.any? %>
+  <ul>
+    <% @cat.errors.full_messages.each do |err_message| %>
+      <li><%= err_message %></li>
+    <% end %>
+  </ul>
+<% end %>

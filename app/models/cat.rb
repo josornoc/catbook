@@ -1,5 +1,10 @@
 class Cat < ActiveRecord::Base
+
+  has_secure_password
+  
   validates :name, presence: true, length: { in: 2..255 }
+  validates :email, presence: true, uniqueness: true
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
   scope :visible, -> { where(visible: true) }
   scope :hidden,  -> { where(visble: false) }
@@ -14,4 +19,5 @@ class Cat < ActiveRecord::Base
 
   has_many :followers,    -> { visible }, through: :follower_relations, source: :followed
   has_many :followed_by,  -> { visible }, through: :followed_relations, source: :cat
+
 end

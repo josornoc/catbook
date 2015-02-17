@@ -3,7 +3,6 @@ class CreateCats < ActiveRecord::Migration
     create_table :cats do |t|
       t.string :name
       t.date   :birthday
-
       t.timestamps
     end
   end
