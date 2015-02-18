@@ -10,6 +10,7 @@ require 'rails_helper'
 #     end
 #   end
 # end
+
 RSpec.describe CatsHelper, type: :helper do
   describe "#localize_date" do
     it "localizes date with short format" do

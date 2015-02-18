@@ -8,5 +8,15 @@ Rails.application.routes.draw do
   post '/register' => 'registration#create'
   post '/login' => 'login#create'
   delete '/logout' => 'login#destroy'
+
+  #get '/api/v1/cats' => 'api#cats'
+
+  namespace :api do
+    namespace :v1 do
+      # get '/api/v1/cats' => 'api#cats'
+      resources :cats, only: [:index]
+    end
+  end
+
   resources :cats  
 end
