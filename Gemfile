@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+# to delay the emailer robot SQL
+gem 'delayed_job_active_record'
+
+# Automated tasks
+gem 'whenever'
+
 # Add bcrypt (~> 3.1.7) to Gemfile to use has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 gem 'bcrypt'
