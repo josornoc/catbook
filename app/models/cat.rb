@@ -6,6 +6,9 @@ class Cat < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i
 
+  has_attached_file :avatar, styles:{:medium => "300x300>", :thumb => "100x100>"}
+  validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/
+
   scope :visible, -> { where(visible: true) }
   scope :hidden,  -> { where(visble: false) }
 

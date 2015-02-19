@@ -8,7 +8,8 @@
   </ul>
 <% end %>
 
-<%= form_for(@cat, url: register_path), :html => { :multipart => true } do |f| %>
+<%= form_for( @cat, url: register_path, :html => { :multipart => true } ) do |f| %>
+
   <div class="form-group">
     <%= f.label :name, "Cat name" %>
     <%= f.text_field :name, placeholder: "Ej. Marramiau", class: "form-control" %>
@@ -35,5 +36,7 @@
     <%= f.label :password_confirmation, "Password Confirmation" %>
     <%= f.password_field :password_confirmation, class: "form-control" %>
   </div>
+  
   <%= f.submit "Create new cat!", class: "btn btn-default" %>
+
 <% end %>

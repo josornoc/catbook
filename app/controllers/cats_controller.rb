@@ -1,7 +1,6 @@
 class CatsController < ApplicationController
 
   # this is for checking the token to external forms to be able to change the database
-  # 
   skip_before_action :verify_authenticity_token
 
   before_action :load_cat_of_the_month, only: :index
@@ -45,7 +44,7 @@ class CatsController < ApplicationController
   end
 
   def cats_params
-    params.require(:cat).permit(:name, :birthday)
+    params.require(:cat).permit(:name, :birthday, :avatar)
     #{ visible: true }.merge(params[:cat])
   end
 
