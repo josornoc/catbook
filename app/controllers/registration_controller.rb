@@ -1,9 +1,7 @@
 class RegistrationController < ApplicationController
-
 	def new
     @cat = Cat.new
   end
-
   def create
     @cat = Cat.new entry_params
     if @cat.save
@@ -28,7 +26,6 @@ class RegistrationController < ApplicationController
 
   private
   def entry_params
-    params.require(:cat).permit(:name, :password, :password_confirmation, :birthday, :email)
+    params.require(:cat).permit(:name, :password, :password_confirmation, :birthday, :email, :avatar)
   end
-
 end
