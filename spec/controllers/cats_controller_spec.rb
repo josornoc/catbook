@@ -76,6 +76,7 @@ RSpec.describe CatsController, type: :controller do
   end
 
   describe "GET #edit" do
+    
     let(:cat) { create(:cat, visible: true) }
 
     it "responds successfully with an HTTP 200 status code if cat is visible" do

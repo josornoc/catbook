@@ -1,7 +1,9 @@
 class LoginController < ApplicationController
 
 	def create
+
 		cat = Cat.where(email:params[:email]).first		
+		
 		if cat && cat.authenticate(params[:password])
 			flash[:success] = "The cat is under the table"
 			flash[:jijuemadre] = cat.name + " se ha logueado. Tenaz."

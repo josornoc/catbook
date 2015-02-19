@@ -20,7 +20,6 @@ RSpec.describe Cat, type: :model do
       expect(cat.valid?).to be false
       expect(cat.errors[:password].present?).to be true
     end
-
   end
 
   describe "#followers association" do
