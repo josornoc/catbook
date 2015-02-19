@@ -8,11 +8,17 @@
   </ul>
 <% end %>
 
-<%= form_for(@cat, url: register_path) do |f| %>
+<%= form_for(@cat, url: register_path), :html => { :multipart => true } do |f| %>
   <div class="form-group">
     <%= f.label :name, "Cat name" %>
     <%= f.text_field :name, placeholder: "Ej. Marramiau", class: "form-control" %>
   </div>
+
+  <div class="form-group">
+    <%= f.label :avatar, "Avatar" %>
+    <%= f.file_field :avatar, class: "form-control" %>
+  </div>
+
   <div class="form-group">
     <%= f.label :birthday, "Birthday" %>
     <%= f.date_field :birthday, class: "form-control" %>
