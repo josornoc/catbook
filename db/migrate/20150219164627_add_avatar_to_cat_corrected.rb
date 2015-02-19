@@ -1,4 +1,5 @@
 class AddAvatarToCatCorrected < ActiveRecord::Migration
+	
   def self.up
   	add_attachment :cats, :avatar
   end

@@ -32,6 +32,7 @@
   <% cache do %>
   <thead>
     <tr>
+      <th>Avatar</th>
       <th>Name</th>
       <th>Birthday</th>
       <th>Followers count</th>
@@ -44,6 +45,7 @@
     <% @cats.each do |cat| %>
       <tr>
         <% cache(cat) do %>
+        <td><%= image_tag cat.avatar.url(:thumb) %></td>
         <td><%= link_to raw(cat.name), cat_path(cat) %></td>
         <td><%= localize_date cat.birthday %></td>
         <td><%= cat.followers.count %></td>
