@@ -29,7 +29,6 @@
 <% end %>
 
 <table class="table table-striped">
-  <% cache do %>
   <thead>
     <tr>
       <th>Avatar</th>
@@ -40,19 +39,20 @@
       <th>Options</th>
     </tr>
   </thead>
-  <% end %>
   <tbody>
     <% @cats.each do |cat| %>
       <tr>
-        <% cache(cat) do %>
-        <td><%= image_tag cat.avatar.url(:thumb) %></td>
+        <% if cat.avatar.url.nil? %>
+          <td><%= image_tag '/avatars/thumb/missing.jpg' %></td>
+        <% else %>
+          <td><%= image_tag cat.avatar.url(:thumb) %></td>
+        <% end %>
         <td><%= link_to raw(cat.name), cat_path(cat) %></td>
         <td><%= localize_date cat.birthday %></td>
         <td><%= cat.followers.count %></td>
         <td><%= cat.followed_by.count %></td>
         <td><%= link_to "Edit", edit_cat_path(cat) %></td>
-        <% end %>
-      </tr>
+        </tr>
     <% end %>
   </tbody>
 </table>
